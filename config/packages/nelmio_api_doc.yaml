@@ -1,0 +1,160 @@
+nelmio_api_doc:
+  documentation:
+    #        schemes: [http, https]
+    info:
+      title: Symfony JWT API
+      description: Symfony JWT API docs
+      version: 1.0.0
+    securityDefinitions:
+      Bearer:
+        type: apiKey
+        description: 'Authorization: Bearer {jwt}'
+        name: Authorization
+        in: header
+    security:
+      - Bearer: []
+
+    definitions:
+
+      Register:
+        description: "Register"
+        type: object
+        properties:
+          username:
+            type: string
+          password:
+            type: string
+          email:
+            type: string
+          sex:
+            type: string
+          city:
+            type: string
+          userImage:
+            type: string
+
+      NotAcceptable:
+        description: "Invalid data"
+        type: object
+        properties:
+          code:
+            type: integer
+            example: 406
+          message:
+            type: string
+
+      CarAd:
+        description: "Create Car Ad"
+        type: object
+        properties:
+          brand:
+            type: integer
+          model:
+            type: integer
+          horsePower:
+            type: integer
+          miliage:
+            type: integer
+          colour:
+            type: string
+          description:
+            type: string
+          price:
+            type: integer
+          image:
+            type: string
+
+      User:
+        description: "User Info"
+        type: object
+        properties:
+          username:
+            type: string
+          email:
+            type: string
+          sex:
+            type: string
+          city:
+            type: string
+          userImage:
+            type: string
+
+      CarAdFull:
+        description: "Car Ad Info"
+        type: object
+        properties:
+          id:
+            type: integer
+          user:
+            $ref: '#/definitions/User'
+          brandName:
+            type: string
+          modelName:
+            type: string
+          horsePower:
+            type: integer
+          miliage:
+            type: integer
+          colour:
+            type: string
+          description:
+            type: string
+          price:
+            type: integer
+          imageUrl:
+            type: string
+
+      CarAdResponse:
+        description: "Car Ad created successfully"
+        type: object
+        properties:
+          code:
+            type: integer
+            example: 201
+          message:
+            type: string
+          imageUrl:
+            type: string
+
+      UserResponse:
+        description: "User edited successfully"
+        type: object
+        properties:
+          code:
+            type: integer
+            example: 201
+          newToken:
+            type: string
+
+      PagerInfo:
+        description: "Listing info"
+        type: object
+        properties:
+          totalCarAds:
+            type: integer
+          carAdsPerPage:
+            type: integer
+          totalPages:
+            type: integer
+          currentPage:
+            type: integer
+
+      Model:
+        description: "Model"
+        type: object
+        properties:
+          id:
+            type: integer
+          modelName:
+            type: string
+      Brand:
+        description: "Brand"
+        type: object
+        properties:
+          id:
+            type: integer
+          brandName:
+            type: string
+  areas: # to filter documented areas
+    path_patterns:
+      - ^/api(?!/doc$) # Accepts routes under /api except /api/docCopy
